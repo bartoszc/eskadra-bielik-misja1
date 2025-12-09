@@ -24,7 +24,7 @@ Przykładowy kod źródłowy pozwalający na:
 5. Sklonuj repozytorium z przykładowym kodem i przejdź do nowoutworzonego katalogu
 
    ```bash
-   git clone https://github.com/speakleash/eskadra-bielik-misja1
+   git clone https://github.com/bartoszc/eskadra-bielik-misja1
    cd eskadra-bielik-misja1
    ```
 
