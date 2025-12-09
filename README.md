@@ -8,6 +8,49 @@ Przykładowy kod źródłowy pozwalający na:
 
 * Uruchomienie obu powyższych serwisów na [Cloud Run](https://cloud.google.com/run?hl=en)
 
+## 0. Instalacja Google Cloud CLI (opcjonalne)
+
+Jeżeli pracujesz lokalnie (poza Cloud Shell), musisz zainstalować narzędzie `gcloud`. Wybierz instrukcję odpowiednią dla Twojego systemu:
+
+<details>
+<summary>macOS</summary>
+
+Najprościej skorzystać z Homebrew:
+```bash
+brew install --cask google-cloud-sdk
+```
+</details>
+
+<details>
+<summary>Windows</summary>
+
+Pobierz i uruchom instalator:
+[Google Cloud SDK Installer](https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe)
+
+Lub użyj PowerShell:
+```powershell
+(New-Object Net.WebClient).DownloadFile("https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe", "$env:Temp\GoogleCloudSDKInstaller.exe")
+& $env:Temp\GoogleCloudSDKInstaller.exe
+```
+</details>
+
+<details>
+<summary>Linux</summary>
+
+**Debian/Ubuntu:**
+```bash
+sudo apt-get install apt-transport-https ca-certificates gnupg curl
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
+sudo apt-get update && sudo apt-get install google-cloud-cli
+```
+
+**Snap (inne dystrybucje):**
+```bash
+sudo snap install google-cloud-cli --classic
+```
+</details>
+
 ## 1. Przygotowanie projektu Google Cloud
 
 1. Uzyskaj kredyt Cloud **OnRamp**, lub skonfiguruj płatności w projekcie Google Cloud
@@ -24,7 +67,7 @@ Przykładowy kod źródłowy pozwalający na:
 5. Sklonuj repozytorium z przykładowym kodem i przejdź do nowoutworzonego katalogu
 
    ```bash
-   git clone https://github.com/bartoszc/eskadra-bielik-misja1
+   git clone https://github.com/speakleash/eskadra-bielik-misja1
    cd eskadra-bielik-misja1
    ```
 
@@ -265,3 +308,15 @@ graph TD
 
 2. Narzędzie `gcloud` stworzy kontener na podstawie konfiguracji zawartej w `adk-agents/Dockerfile` i uruchomi usługę w Cloud Run, podając URL pod którym serwis będzie dostępny
 3. Wywołaj otrzymany URL w przeglądarce WWW aby mieć dostęp do środowiska ADK Web
+
+## 7. Sprzątanie zasobów
+
+Po zakończeniu warsztatów możesz usunąć cały projekt Google Cloud, aby uniknąć naliczania dalszych opłat. Poniższa komenda automatycznie pobierze nazwę bieżącego projektu i usunie go.
+
+> [!CAUTION]
+> Ta operacja jest nieodwracalna i usunie wszystkie zasoby w projekcie (Cloud Run, obrazy kontenerów, dyski, etc.).
+
+```bash
+gcloud projects delete $(gcloud config get-value project) --quiet
+```
+
